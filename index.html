@@ -154,28 +154,34 @@
             position: relative;
         }
 
-        /* Contenedor adaptado para Spotify (Cuadrado/Alto) */
+        /* Contenedor adaptado para Video */
         .album-cover {
             position: relative;
             z-index: 5;
             width: 100%;
-            max-width: 352px; /* Ancho estándar de Spotify */
-            height: 352px;    /* Alto exacto del embed de Spotify */
-            border-radius: 12px; /* Coincide con el borde del iframe */
+            max-width: 352px; 
+            height: 352px;    
+            border-radius: 12px; 
             box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            background: #000; /* Fondo negro por si carga lento */
-            /* Quitamos el borde blanco anterior para que se vea limpio el player */
+            background: #000; 
+            overflow: hidden; /* Importante para que el video no se salga */
             transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .album-cover:hover {
             transform: scale(1.02);
         }
 
-        .album-cover iframe {
+        /* ESTILO ESPECÍFICO PARA EL VIDEO */
+        .album-cover video {
             width: 100%;
             height: 100%;
+            object-fit: cover; /* Hace que el video llene el cuadrado como una portada */
             border: none;
+            outline: none;
         }
 
         /* El Disco de Vinilo */
@@ -189,7 +195,7 @@
                 repeating-radial-gradient(#1a1a1a 0, #1a1a1a 4px, #0a0a0a 5px, #1a1a1a 6px);
             border-radius: 50%;
             z-index: 1;
-            margin-left: -150px; /* Sale por la izquierda del player */
+            margin-left: -150px; 
             box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
             animation: spin 8s linear infinite;
             display: flex;
@@ -261,7 +267,7 @@
 
             .vinyl-disc {
                 margin-left: 0;
-                margin-top: -200px; /* Ajuste para que quede detrás del player alto */
+                margin-top: -200px; 
                 width: 260px;
                 height: 260px;
                 z-index: 1;
@@ -301,7 +307,10 @@
 
             <div class="song-card">
                 <div class="album-cover">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1dGr1c2nPpXeTSXWaShpcG?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <video controls controlsList="nodownload">
+                        <source src="Taylor Swift - Lover - LatinHype (1080p, h264).mp4" type="video/mp4">
+                        Tu navegador no soporta video.
+                    </video>
                 </div>
                 <div class="vinyl-disc">
                     <span class="vinyl-label-text">Side A<br>Track 1</span>
@@ -313,7 +322,10 @@
 
             <div class="song-card">
                 <div class="album-cover">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4R2kfaDFhslZwpwCaSWg05?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <video controls controlsList="nodownload">
+                        <source src="Cardigan - Taylor Swift (Lyric Video) - Vibe Guide (1080p, h264).mp4" type="video/mp4">
+                        Tu navegador no soporta video.
+                    </video>
                 </div>
                 <div class="vinyl-disc">
                     <span class="vinyl-label-text">Side A<br>Track 2</span>
@@ -325,7 +337,10 @@
 
             <div class="song-card">
                 <div class="album-cover">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3sW3KS15v5PhZRgW30FtTs?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <video controls controlsList="nodownload">
+                        <source src="Taylor Swift - Enchanted (Lyrics) - Heydaylines Lyrics (1080p, h264).mp4" type="video/mp4">
+                        Tu navegador no soporta video.
+                    </video>
                 </div>
                 <div class="vinyl-disc">
                     <span class="vinyl-label-text">Side B<br>Track 3</span>
@@ -337,7 +352,10 @@
             
             <div class="song-card">
                 <div class="album-cover">
-                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5enxwA8aAbwZbf5qCHORXi?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <video controls controlsList="nodownload">
+                        <source src="All Too Well (10 Minute Version) (Taylor's Version) (From The Vault) (Lyric Video) - Taylor Swift (1080p, h264).mp4" type="video/mp4">
+                        Tu navegador no soporta video.
+                    </video>
                 </div>
                 <div class="vinyl-disc">
                     <span class="vinyl-label-text">Side B<br>Track 4</span>
