@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti: Taylor's Version 🧣</title>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=Jost:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red-deep: #4a0e1f;
+            --red-light: #8b1538;
+            --gold: #d4af37;
+            --gold-light: #f4d160;
+            --cream: #fef9f3;
+            --vinyl-black: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: radial-gradient(circle at center, #6e152e 0%, #2b050f 100%);
+            min-height: 100vh;
+            color: var(--cream);
+            overflow-x: hidden;
+            padding-bottom: 50px;
+        }
+
+        /* --- EFECTO NIEVE --- */
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -20px;
+            color: rgba(255, 255, 255, 0.6);
+            animation: fall linear infinite;
+            text-shadow: 0 0 5px rgba(255,255,255,0.8);
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
+
+        /* --- CONTENEDORES --- */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- PANTALLA DE INICIO (REGALO) --- */
+        .gift-intro {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .gift-intro.hidden {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            top: -100vh;
+        }
+
+        .main-title {
+            font-family: 'IM Fell DW Pica', serif;
+            font-size: 4rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            font-style: italic;
+        }
+
+        .gift-emoji {
+            font-size: 8rem;
+            margin: 2rem 0;
+            cursor: pointer;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.6));
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.3s;
+        }
+
+        .gift-emoji:hover {
+            transform: scale(1.1);
+        }
+
+        .open-btn {
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            color: var(--red-deep);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            font-family: 'Jost', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .open-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .content-area {
+            display: none;
+            width: 100%;
+            animation: slideUp 1s ease-out forwards;
+        }
+
+        .header-msg {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .header-msg h2 {
+            font-family: 'IM Fell DW Pica', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        /* --- ESTILO VINILO (TARJETAS) --- */
+        .song-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        /* Contenedor adaptado para Spotify (Cuadrado/Alto) */
+        .album-cover {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            max-width: 352px; /* Ancho estándar de Spotify */
+            height: 352px;    /* Alto exacto del embed de Spotify */
+            border-radius: 12px; /* Coincide con el borde del iframe */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            background: #000; /* Fondo negro por si carga lento */
+            /* Quitamos el borde blanco anterior para que se vea limpio el player */
+            transition: transform 0.3s;
+        }
+
+        .album-cover:hover {
+            transform: scale(1.02);
+        }
+
+        .album-cover iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* El Disco de Vinilo */
+        .vinyl-disc {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background: 
+                radial-gradient(circle, #d4af37 15%, transparent 16%),
+                radial-gradient(circle, #111 16%, #111 18%, #222 18.5%, #111 19%),
+                repeating-radial-gradient(#1a1a1a 0, #1a1a1a 4px, #0a0a0a 5px, #1a1a1a 6px);
+            border-radius: 50%;
+            z-index: 1;
+            margin-left: -150px; /* Sale por la izquierda del player */
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
+            animation: spin 8s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #050505;
+        }
+
+        .vinyl-label-text {
+            position: absolute;
+            color: var(--red-deep);
+            font-size: 0.6rem;
+            font-weight: bold;
+            z-index: 2;
+            text-align: center;
+            width: 60px;
+            font-family: 'Jost', sans-serif;
+            pointer-events: none;
+        }
+
+        .song-details {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .song-title {
+            font-family: 'IM Fell DW Pica', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            font-style: italic;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* --- ANIMACIONES --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            .main-title { font-size: 2.5rem; }
+            
+            .song-card {
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 5rem;
+            }
+
+            .vinyl-disc {
+                margin-left: 0;
+                margin-top: -200px; /* Ajuste para que quede detrás del player alto */
+                width: 260px;
+                height: 260px;
+                z-index: 1;
+            }
+
+            .album-cover {
+                width: 100%;
+                max-width: 352px; 
+                z-index: 5;
+            }
+            
+            .song-details {
+                position: static;
+                margin-top: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="snowflakes" id="snowflakes"></div>
+
+    <div class="container">
+        <div class="gift-intro" id="giftIntro">
+            <h1 class="main-title">Happy Swiftmas</h1>
+            <div class="gift-emoji" onclick="openGift()">🎁</div>
+            <p style="margin-bottom: 20px; font-style: italic;">(Toca el regalo para abrir)</p>
+            <button class="open-btn" onclick="openGift()">Abrir Sorpresa</button>
+        </div>
+
+        <div class="content-area" id="mainContent">
+            
+            <div class="header-msg">
+                <h2>The Eras Tour (Tu Versión)</h2>
+                <p>Elegí estas canciones porque me recuerdan a ti...</p>
+            </div>
+
+            <div class="song-card">
+                <div class="album-cover">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1dGr1c2nPpXeTSXWaShpcG?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="vinyl-disc">
+                    <span class="vinyl-label-text">Side A<br>Track 1</span>
+                </div>
+                <div class="song-details">
+                    <div class="song-title">Lover</div>
+                </div>
+            </div>
+
+            <div class="song-card">
+                <div class="album-cover">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4R2kfaDFhslZwpwCaSWg05?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="vinyl-disc">
+                    <span class="vinyl-label-text">Side A<br>Track 2</span>
+                </div>
+                <div class="song-details">
+                    <div class="song-title">Cardigan</div>
+                </div>
+            </div>
+
+            <div class="song-card">
+                <div class="album-cover">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3sW3KS15v5PhZRgW30FtTs?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="vinyl-disc">
+                    <span class="vinyl-label-text">Side B<br>Track 3</span>
+                </div>
+                <div class="song-details">
+                    <div class="song-title">Enchanted</div>
+                </div>
+            </div>
+            
+            <div class="song-card">
+                <div class="album-cover">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5enxwA8aAbwZbf5qCHORXi?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="vinyl-disc">
+                    <span class="vinyl-label-text">Side B<br>Track 4</span>
+                </div>
+                <div class="song-details">
+                    <div class="song-title">All Too Well</div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p style="font-family: 'IM Fell DW Pica', serif; font-size: 1.5rem;">"You are the best thing that's ever been mine"</p>
+                <br>
+                <small>Con mucho amor, para ti.</small>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // GENERAR NIEVE
+        function createSnow() {
+            const container = document.getElementById('snowflakes');
+            const symbols = ['❄', '❅', '•'];
+            
+            for(let i=0; i<30; i++){
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                flake.style.left = Math.random() * 100 + '%';
+                flake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                flake.style.opacity = Math.random();
+                flake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                flake.style.animationDelay = Math.random() * 5 + 's';
+                
+                container.appendChild(flake);
+            }
+        }
+
+        // ABRIR REGALO
+        function openGift() {
+            const intro = document.getElementById('giftIntro');
+            const main = document.getElementById('mainContent');
+            
+            intro.style.opacity = '0';
+            intro.style.transform = 'translateY(-50px)';
+            
+            setTimeout(() => {
+                intro.classList.add('hidden');
+                main.style.display = 'block';
+                // Trigger reflow para la animación
+                void main.offsetWidth; 
+                createSnow(); // Añadir más nieve al abrir
+            }, 800);
+        }
+
+        // INICIAR
+        window.onload = createSnow;
+    </script>
+</body>
+</html>
